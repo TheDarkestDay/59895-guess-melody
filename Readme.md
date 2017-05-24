@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Бренчев](https://up.htmlacademy.ru/ecmascript/2/user/59895).
-* Наставник: `Неизвестно`.
+* Наставник: [Вячеслав Мостовой](https://htmlacademy.ru/profile/id169172).
 
 ---
 
