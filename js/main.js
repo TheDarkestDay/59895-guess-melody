@@ -50,25 +50,13 @@
     return screenIdx;
   }
 
-  let altIsPressed = false;
   let currentScreenIdx = 0;
 
   document.addEventListener(`keydown`, (evt) => {
-    if (evt.keyCode === ALT) {
-      altIsPressed = true;
-      return;
-    }
-
-    if (altIsPressed && isArrow(evt.keyCode)) {
+    if (evt.altKey && isArrow(evt.keyCode)) {
       evt.preventDefault();
       currentScreenIdx = getNewScreenIdx(currentScreenIdx, evt.keyCode);
       displayScreen(currentScreenIdx);
-    }
-  });
-
-  document.addEventListener(`keyup`, (evt) => {
-    if (evt.keyCode === ALT) {
-      altIsPressed = false;
     }
   });
 
