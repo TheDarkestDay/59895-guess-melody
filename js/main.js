@@ -13,15 +13,14 @@
   const screens = [welcomeScreen, ...generateScreens(guessArtistScreen, guessGenreScreen, SCREEN_COUNT), resultScreen];
 
   function generateScreens(screenTypeA, screenTypeB, count) {
-    const mapRandomNumToType = {
-      0: screenTypeA,
-      1: screenTypeB
-    };
-
     let result = [];
     for (let i = 0; i < count; i++) {
       let randomNum = Math.round(Math.random());
-      result.push(mapRandomNumToType[randomNum]);
+      if (randomNum === 0) {
+        result.push(screenTypeA);
+      } else {
+        result.push(screenTypeB);
+      }
     }
     return result;
   }
