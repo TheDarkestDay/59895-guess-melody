@@ -1,7 +1,18 @@
 (function () {
-  const SCREEN_COUNT = 10;
 
-  function generateScreens(screenTypeA, screenTypeB, count = SCREEN_COUNT) {
+  const SCREEN_COUNT = 10;
+  const ALT = 18;
+  const LEFT_ARROW = 37;
+  const RIGHT_ARROW = 39;
+  const templates = document.querySelector(`#templates`).content;
+  const mainOutlet = document.querySelector(`section.main`);
+  const welcomeScreen = templates.querySelector(`.main--welcome`);
+  const resultScreen = templates.querySelector(`.main--result`);
+  const guessArtistScreen = templates.querySelector(`.main--level-artist`);
+  const guessGenreScreen = templates.querySelector(`.main--level-genre`);
+  const screens = [welcomeScreen, ...generateScreens(guessArtistScreen, guessGenreScreen, SCREEN_COUNT), resultScreen];
+
+  function generateScreens(screenTypeA, screenTypeB, count) {
     const mapRandomNumToType = {
       0: screenTypeA,
       1: screenTypeB
@@ -24,44 +35,34 @@
     return keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
   }
 
-  const templates = document.querySelector(`#templates`).content;
-  const mainOutlet = document.querySelector(`section.main`);
-  const welcomeScreen = templates.querySelector(`.main--welcome`);
-  const resultScreen = templates.querySelector(`.main--result`);
-  const guessArtistScreen = templates.querySelector(`.main--level-artist`);
-  const guessGenreScreen = templates.querySelector(`.main--level-genre`);
-  const screens = generateScreens(guessArtistScreen, guessGenreScreen);
-  const ALT = 18;
-  const LEFT_ARROW = 37;
-  const RIGHT_ARROW = 39;
-
-  const screenChangers = {
-    [LEFT_ARROW]: () => {
-      if (currentScreenIdx !== 0) {
-        currentScreenIdx -= 1;
-      }
-    },
-    [RIGHT_ARROW]: () => {
-      if (currentScreenIdx !== SCREEN_COUNT + 1) {
-        currentScreenIdx += 1;
-      }
+  function getNewScreenIdx(screenIdx, arrow) {
+    switch (arrow) {
+      case LEFT_ARROW:
+        if (screenIdx !== 0) {
+          return screenIdx - 1;
+        }
+        break;
+      case RIGHT_ARROW:
+        if (screenIdx !== screens.length - 1) {
+          return screenIdx + 1;
+        }
+        break;
     }
-  };
+    return screenIdx;
+  }
 
   let altIsPressed = false;
   let currentScreenIdx = 0;
-
-  screens.unshift(welcomeScreen);
-  screens.push(resultScreen);
 
   document.addEventListener(`keydown`, (evt) => {
     if (evt.keyCode === ALT) {
       altIsPressed = true;
       return;
     }
+
     if (altIsPressed && isArrow(evt.keyCode)) {
       evt.preventDefault();
-      screenChangers[evt.keyCode]();
+      currentScreenIdx = getNewScreenIdx(currentScreenIdx, evt.keyCode);
       displayScreen(currentScreenIdx);
     }
   });
