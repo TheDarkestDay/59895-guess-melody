@@ -1,7 +1,6 @@
 (function () {
 
   const SCREEN_COUNT = 10;
-  const ALT = 18;
   const LEFT_ARROW = 37;
   const RIGHT_ARROW = 39;
   const templates = document.querySelector(`#templates`).content;
