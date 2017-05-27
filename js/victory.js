@@ -1,4 +1,6 @@
 import buildDOMFromTemplate from './buildDOMFromTemplate.js';
+import welcomeScreen from './welcome.js';
+import renderScreen from './render-screen.js';
 
 const sectionClass = `main main--result`;
 const victoryMarkup = `
@@ -9,4 +11,10 @@ const victoryMarkup = `
   <span class="main-comparison">Это&nbsp;лучше чем у&nbsp;80%&nbsp;игроков</span>
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>`;
 const victoryScreen = buildDOMFromTemplate(victoryMarkup, sectionClass);
+const replayButton = victoryScreen.querySelector(`.main-replay`);
+
+replayButton.addEventListener(`click`, () => {
+  renderScreen(welcomeScreen);
+});
+
 export default victoryScreen;

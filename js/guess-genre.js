@@ -1,4 +1,7 @@
 import buildDOMFromTemplate from './buildDOMFromTemplate.js';
+import renderScreen from './render-screen.js';
+import victoryScreen from './victory.js';
+import defeatScreen from './defeat.js';
 
 const sectionClass = `main main--level main--level-genre`;
 const guessGenreMarkup = `
@@ -31,4 +34,30 @@ const guessGenreMarkup = `
     <button class="genre-answer-send" type="submit">Ответить</button>
   </form>`;
 const guessGenreScreen = buildDOMFromTemplate(guessGenreMarkup, sectionClass);
+const answers = [...guessGenreScreen.querySelectorAll(`input[type="checkbox"]`)];
+const sendBtn = guessGenreScreen.querySelector(`.genre-answer-send`);
+
+function isChecked(checkbox) {
+  return checkbox.checked;
+}
+
+function changeSubmitBtnState() {
+  sendBtn.disabled = true;
+  if (answers.some(isChecked)) {
+    sendBtn.disabled = false;
+  }
+}
+
+sendBtn.disabled = true;
+answers.forEach((answer) => answer.addEventListener(`change`, changeSubmitBtnState));
+
+sendBtn.addEventListener(`click`, () => {
+  const randomNumber = Math.round(Math.random());
+  if (randomNumber === 1) {
+    renderScreen(victoryScreen);
+  } else {
+    renderScreen(defeatScreen);
+  }
+});
+
 export default guessGenreScreen;
