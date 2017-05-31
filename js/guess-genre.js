@@ -1,7 +1,8 @@
 import buildDOMFromTemplate from './buildDOMFromTemplate.js';
 import renderScreen from './render-screen.js';
-import victoryScreen from './victory.js';
-import defeatScreen from './defeat.js';
+import resultScreen from './result.js';
+import victory from './model/victory.js';
+import defeat from './model/defeat.js';
 
 const sectionClass = `main main--level main--level-genre`;
 const guessGenreMarkup = `
@@ -54,9 +55,9 @@ answers.forEach((answer) => answer.addEventListener(`change`, changeSubmitBtnSta
 sendBtn.addEventListener(`click`, () => {
   const randomNumber = Math.round(Math.random());
   if (randomNumber === 1) {
-    renderScreen(victoryScreen);
+    renderScreen(resultScreen(victory));
   } else {
-    renderScreen(defeatScreen);
+    renderScreen(resultScreen(defeat));
   }
 });
 
