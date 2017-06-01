@@ -1,6 +1,7 @@
 import buildDOMFromTemplate from './buildDOMFromTemplate.js';
 import guessArtistScreen from './guess-artist.js';
 import renderScreen from './render-screen.js';
+import artistQuestions from './model/artist-questions.js';
 
 export default (data) => {
   const sectionClass = `main main--welcome`;
@@ -15,7 +16,7 @@ export default (data) => {
   const playBtn = welcomeScreen.querySelector(`.main-play`);
 
   playBtn.addEventListener(`click`, () => {
-    renderScreen(guessArtistScreen);
+    renderScreen(guessArtistScreen(artistQuestions));
   });
 
   return welcomeScreen;

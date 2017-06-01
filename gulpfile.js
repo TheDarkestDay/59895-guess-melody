@@ -67,6 +67,7 @@ gulp.task('copy-html', function () {
 
 gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
   return gulp.src([
+    'audio/*.*',
     'fonts/**/*.{woff,woff2}',
     'img/*.*'
   ], {base: '.'})
