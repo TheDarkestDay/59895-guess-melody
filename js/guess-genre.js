@@ -1,63 +1,57 @@
 import buildDOMFromTemplate from './buildDOMFromTemplate.js';
 import renderScreen from './render-screen.js';
-import victoryScreen from './victory.js';
-import defeatScreen from './defeat.js';
+import resultScreen from './result.js';
+import victory from './model/victory.js';
+import defeat from './model/defeat.js';
 
-const sectionClass = `main main--level main--level-genre`;
-const guessGenreMarkup = `
-  <h2 class="title">Выберите инди-рок треки</h2>
-  <form class="genre">
-    <div class="genre-answer">
-      <div class="player-wrapper"></div>
-      <input type="checkbox" name="answer" value="answer-1" id="a-1">
-      <label class="genre-answer-check" for="a-1"></label>
-    </div>
+export default (data) => {
 
-    <div class="genre-answer">
-      <div class="player-wrapper"></div>
-      <input type="checkbox" name="answer" value="answer-1" id="a-2">
-      <label class="genre-answer-check" for="a-2"></label>
-    </div>
+  function generateAnswerMarkup(answer, idx) {
+    return `
+      <div class="genre-answer">
+        <div class="player-wrapper"></div>
+        <input type="checkbox" name="answer" value="answer-${idx + 1}" id="a-${idx + 1}">
+        <label class="genre-answer-check" for="a-${idx + 1}"></label>
+      </div>
+    `;
+  }
 
-    <div class="genre-answer">
-      <div class="player-wrapper"></div>
-      <input type="checkbox" name="answer" value="answer-1" id="a-3">
-      <label class="genre-answer-check" for="a-3"></label>
-    </div>
+  const sectionClass = `main main--level main--level-genre`;
+  const guessGenreMarkup = `
+    <h2 class="title">Выберите ${data.targetGenre} треки</h2>
+    <form class="genre">
+      ${data.answers.map(generateAnswerMarkup).join(``)}
+      <button class="genre-answer-send" type="submit">Ответить</button>
+    </form>`;
+  const guessGenreScreen = buildDOMFromTemplate(guessGenreMarkup, sectionClass);
+  const answers = [...guessGenreScreen.querySelectorAll(`input[type="checkbox"]`)];
+  const sendBtn = guessGenreScreen.querySelector(`.genre-answer-send`);
+  const playerWrappers = [...guessGenreScreen.querySelectorAll(`.player-wrapper`)];
 
-    <div class="genre-answer">
-      <div class="player-wrapper"></div>
-      <input type="checkbox" name="answer" value="answer-1" id="a-4">
-      <label class="genre-answer-check" for="a-4"></label>
-    </div>
+  function isChecked(checkbox) {
+    return checkbox.checked;
+  }
 
-    <button class="genre-answer-send" type="submit">Ответить</button>
-  </form>`;
-const guessGenreScreen = buildDOMFromTemplate(guessGenreMarkup, sectionClass);
-const answers = [...guessGenreScreen.querySelectorAll(`input[type="checkbox"]`)];
-const sendBtn = guessGenreScreen.querySelector(`.genre-answer-send`);
+  function changeSubmitBtnState() {
+    sendBtn.disabled = true;
+    if (answers.some(isChecked)) {
+      sendBtn.disabled = false;
+    }
+  }
 
-function isChecked(checkbox) {
-  return checkbox.checked;
-}
-
-function changeSubmitBtnState() {
   sendBtn.disabled = true;
-  if (answers.some(isChecked)) {
-    sendBtn.disabled = false;
-  }
-}
+  answers.forEach((answer) => answer.addEventListener(`change`, changeSubmitBtnState));
 
-sendBtn.disabled = true;
-answers.forEach((answer) => answer.addEventListener(`change`, changeSubmitBtnState));
+  playerWrappers.forEach((wrapper, idx) => window.initializePlayer(wrapper, data.answers[idx].audioUrl));
 
-sendBtn.addEventListener(`click`, () => {
-  const randomNumber = Math.round(Math.random());
-  if (randomNumber === 1) {
-    renderScreen(victoryScreen);
-  } else {
-    renderScreen(defeatScreen);
-  }
-});
+  sendBtn.addEventListener(`click`, () => {
+    const randomNumber = Math.round(Math.random());
+    if (randomNumber === 1) {
+      renderScreen(resultScreen(victory));
+    } else {
+      renderScreen(resultScreen(defeat));
+    }
+  });
 
-export default guessGenreScreen;
+  return guessGenreScreen;
+};
