@@ -72,4 +72,17 @@ describe(`calc greatness function`, () => {
 
     assert.equal(calcGreatness(newResult, previousResults), 0);
   });
+
+  it(`should round non-integer results to nearest integer`, () => {
+    const previousResults = [
+      {time: 99, answers: 8},
+      {time: 110, answers: 7}
+    ];
+    const newResult = {
+      time: 70,
+      answers: 20
+    };
+
+    assert.equal(calcGreatness(newResult, previousResults), 66);
+  });
 });

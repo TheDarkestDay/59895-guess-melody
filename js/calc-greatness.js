@@ -10,19 +10,19 @@ function compareNumbers(a, b) {
 
 export default function calcGreatness(newResult, previousResults) {
   const results = previousResults.concat(newResult);
-//  const resultsGroupedByAnswers = {};
+  const resultsGroupedByAnswers = {};
 
-/*  results.forEach((elem) => {
+  results.forEach((elem) => {
     if (resultsGroupedByAnswers[elem.answers]) {
       resultsGroupedByAnswers[elem.answers].push(elem);
     } else {
       resultsGroupedByAnswers[elem.answers] = [elem];
     }
-  }); */
+  });
 
-  const resultsGroupedByAnswers = results.reduce((acc, curr) => {
+/*  const resultsGroupedByAnswers = results.reduce((acc, curr) => {
 
-  }, {});
+  }, {}); */
 
   const rating = Object.keys(resultsGroupedByAnswers)
                   .map((key) => Number(key))
@@ -39,5 +39,5 @@ export default function calcGreatness(newResult, previousResults) {
     newResultPlace += resultsSameAsNew - 1;
   }
 
-  return ((results.length - newResultPlace) / results.length) * 100;
+  return Math.floor(((results.length - newResultPlace) / results.length) * 100);
 }
