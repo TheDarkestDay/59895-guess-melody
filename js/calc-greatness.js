@@ -5,20 +5,24 @@ function compareByTime(a, b) {
 }
 
 function compareNumbers(a, b) {
-  return b - a;
+  return b - a > 0;
 }
 
 export default function calcGreatness(newResult, previousResults) {
   const results = previousResults.concat(newResult);
-  const resultsGroupedByAnswers = {};
+//  const resultsGroupedByAnswers = {};
 
-  results.forEach((elem) => {
+/*  results.forEach((elem) => {
     if (resultsGroupedByAnswers[elem.answers]) {
       resultsGroupedByAnswers[elem.answers].push(elem);
     } else {
       resultsGroupedByAnswers[elem.answers] = [elem];
     }
-  });
+  }); */
+
+  const resultsGroupedByAnswers = results.reduce((acc, curr) => {
+
+  }, {});
 
   const rating = Object.keys(resultsGroupedByAnswers)
                   .map((key) => Number(key))
