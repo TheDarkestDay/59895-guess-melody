@@ -1,43 +1,24 @@
 
 
-function compareByTime(a, b) {
-  return a.time - b.time > 0;
-}
+function compareScores(a, b) {
+  if (a.answers === b.answers) {
+    return a.time - b.time;
+  }
 
-function compareNumbers(a, b) {
-  return b - a > 0;
+  return b.answers - a.answers;
 }
 
 export default function calcGreatness(newResult, previousResults) {
-  const results = previousResults.concat(newResult);
-  const resultsGroupedByAnswers = {};
+  const allResults = previousResults.concat(newResult);
 
-  results.forEach((elem) => {
-    if (resultsGroupedByAnswers[elem.answers]) {
-      resultsGroupedByAnswers[elem.answers].push(elem);
-    } else {
-      resultsGroupedByAnswers[elem.answers] = [elem];
-    }
-  });
+  allResults.sort(compareScores);
 
-/*  const resultsGroupedByAnswers = results.reduce((acc, curr) => {
-
-  }, {}); */
-
-  const rating = Object.keys(resultsGroupedByAnswers)
-                  .map((key) => Number(key))
-                  .sort(compareNumbers)
-                  .reduce((acc, current) => {
-                    const sortedGroup = resultsGroupedByAnswers[current].sort(compareByTime);
-                    return acc.concat(sortedGroup);
-                  }, []);
-
-  const resultsSameAsNew = rating.filter((elem) => elem.answers === newResult.answers && elem.time === newResult.time).length;
-  let newResultPlace = rating.findIndex((elem) => elem.answers === newResult.answers && elem.time === newResult.time) + 1;
+  const resultsSameAsNew = allResults.filter((elem) => elem.answers === newResult.answers && elem.time === newResult.time).length;
+  let newResultPlace = allResults.findIndex((elem) => elem.answers === newResult.answers && elem.time === newResult.time) + 1;
 
   if (resultsSameAsNew > 1) {
     newResultPlace += resultsSameAsNew - 1;
   }
 
-  return Math.floor(((results.length - newResultPlace) / results.length) * 100);
+  return Math.floor(((allResults.length - newResultPlace) / allResults.length) * 100);
 }
