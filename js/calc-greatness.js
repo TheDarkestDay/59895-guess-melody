@@ -13,11 +13,10 @@ export default function calcGreatness(newResult, previousResults) {
 
   allResults.sort(compareScores);
 
-  const resultsSameAsNew = allResults.filter((elem) => elem.answers === newResult.answers && elem.time === newResult.time).length;
-  let newResultPlace = allResults.findIndex((elem) => elem.answers === newResult.answers && elem.time === newResult.time) + 1;
+  let newResultPlace = allResults.findIndex((elem) => compareScores(newResult, elem) < 0);
 
-  if (resultsSameAsNew > 1) {
-    newResultPlace += resultsSameAsNew - 1;
+  if (newResultPlace === -1) {
+    newResultPlace = allResults.length;
   }
 
   return Math.floor(((allResults.length - newResultPlace) / allResults.length) * 100);
