@@ -1,5 +1,4 @@
 import buildDOMFromTemplate from './buildDOMFromTemplate.js';
-import welcomeScreen from './welcome.js';
 import renderScreen from './render-screen.js';
 import greetings from './model/greetings.js';
 
@@ -16,7 +15,7 @@ export default (data) => {
   const replayButton = resultScreen.querySelector(`.main-replay`);
 
   replayButton.addEventListener(`click`, () => {
-    renderScreen(welcomeScreen(greetings));
+ //   renderScreen(welcomeScreen(greetings));
   });
 
   return resultScreen;
