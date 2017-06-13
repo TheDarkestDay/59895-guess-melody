@@ -6,7 +6,7 @@ import guessGenreContainer from './guess-genre.js';
 export default (data) => {
   const view = new GuessArtistView(`main main--level main--level-artist`, data);
 
-  view.handleClick = () => {
+  view.handleAnswerSubmit = () => {
     renderScreen(guessGenreContainer(genreQuestions));
   };
 

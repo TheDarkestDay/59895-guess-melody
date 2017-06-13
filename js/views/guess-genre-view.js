@@ -28,7 +28,10 @@ export default class GuessGenreView extends AbstractView {
     const sendBtn = this._element.querySelector(`.genre-answer-send`);
     sendBtn.disabled = true;
 
-    sendBtn.addEventListener(`click`, this.handleAnswerSubmit);
+    sendBtn.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this.handleAnswerSubmit();
+    });
 
     answers.forEach((elem) => elem.addEventListener(`change`, () => {
       if (answers.some((checkbox) => checkbox.checked)) {

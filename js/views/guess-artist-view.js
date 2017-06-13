@@ -43,7 +43,7 @@ export default class GuessArtistView extends AbstractView {
 
   bind() {
     const answers = [...this._element.querySelectorAll(`.main-answer`)];
-    answers.forEach((answer) => answer.addEventListener(`click`, this.handleClick));
+    answers.forEach((answer) => answer.addEventListener(`click`, this.handleAnswerSubmit));
 
     const playerWrapper = this._element.querySelector(`.player-wrapper`);
     window.initializePlayer(playerWrapper, this.props.audioUrl);
