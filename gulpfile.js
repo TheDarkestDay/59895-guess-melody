@@ -83,7 +83,7 @@ gulp.task('js-watch', ['scripts'], function (done) {
 
 gulp.task('test', function () {
   return gulp
-    .src(['js/**/*.test.js'], { read: false })
+    .src(['./tests/*.test.js'], { read: false })
     .pipe(mocha({
       compilers: ['js:babel-core/register'],
       reporter: 'spec'

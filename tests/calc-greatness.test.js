@@ -1,5 +1,5 @@
 import assert from 'assert';
-import calcGreatness from '../calc-greatness.js';
+import calcGreatness from '../js/calc-greatness.js';
 
 describe(`calc greatness function`, () => {
 

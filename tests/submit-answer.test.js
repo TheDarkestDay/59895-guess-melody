@@ -1,5 +1,5 @@
 import assert from 'assert';
-import submitAnswer from '../submit-answer.js';
+import submitAnswer from '../js/submit-answer.js';
 import {getArtistScreenState, getGenreScreenState} from './utils.js';
 
 describe(`submit answer function`, () => {

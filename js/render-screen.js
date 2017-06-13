@@ -1,7 +1,7 @@
 
 const mainOutlet = document.querySelector(`section.main`);
 
-export default function renderScreen(screenElement) {
+export default function renderScreen(view) {
   mainOutlet.innerHTML = ``;
-  mainOutlet.appendChild(screenElement);
+  mainOutlet.appendChild(view.element);
 }

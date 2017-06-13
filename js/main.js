@@ -1,5 +1,5 @@
-import welcomeScreen from './welcome.js';
-import greetings from './model/greetings.js';
+import welcomeContainer from './containers/welcome.js';
 import renderScreen from './render-screen.js';
+import greetings from './model/greetings.js';
 
-renderScreen(welcomeScreen(greetings));
+renderScreen(welcomeContainer(greetings));
