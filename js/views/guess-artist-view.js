@@ -1,6 +1,6 @@
-import AbstractView from './abstract-view.js';
+import GameView from './game-view.js';
 
-export default class GuessArtistView extends AbstractView {
+export default class GuessArtistView extends GameView {
 
   generateAnswerChoiceMarkup(answer, idx) {
     return `
