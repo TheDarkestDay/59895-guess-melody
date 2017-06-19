@@ -1,13 +1,12 @@
 import ResultsView from '../views/results-view.js';
-import renderScreen from '../render-screen.js';
-import welcomeContainer from './welcome.js';
+import Application from '../application.js';
 import greetings from '../model/greetings.js';
 
 export default (data) => {
   const view = new ResultsView(`main main--result`, data);
 
   view.handleClick = () => {
-    renderScreen(welcomeContainer(greetings));
+    Application.openWelcomeScreen(greetings);
   };
 
   return view;

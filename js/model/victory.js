@@ -1,6 +1,9 @@
-export default {
-  isVictory: true,
-  title: `Вы настоящий меломан!`,
-  score: `За&nbsp;2&nbsp;минуты<br>вы&nbsp;отгадали 4&nbsp;мелодии`,
-  greatnessPercentage: `95`
-};
+
+export default function createVictoryMessage(state, greatnessPercentage) {
+  return {
+    isVictory: true,
+    title: `Вы настоящий меломан!`,
+    score: `За&nbsp;${Math.floor(state.duration / 60)}&nbsp;минуты<br>вы угадали&nbsp;${10 - state.questionsLeft - 3 + state.lives} &nbsp;мелодии`,
+    greatnessPercentage
+  };
+}
