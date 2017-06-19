@@ -13,7 +13,7 @@ export default class GuessGenreView extends GameView {
   }
 
   get template() {
-    const {answers, targetGenre} = this.props;
+    const {answers, targetGenre} = this.props.question;
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
@@ -27,11 +27,13 @@ export default class GuessGenreView extends GameView {
           --><span class="timer-value-secs">00</span>
         </div>
       </svg>
-      <h2 class="title">Выберите ${targetGenre} треки</h2>
-      <form class="genre">
-        ${answers.map(this.generateAnswerMarkup).join(``)}
-        <button class="genre-answer-send" type="submit">Ответить</button>
-      </form>
+      <div class="main-wrap">
+        <h2 class="title">Выберите ${targetGenre} треки</h2>
+        <form class="genre">
+          ${answers.map(this.generateAnswerMarkup).join(``)}
+          <button class="genre-answer-send" type="submit">Ответить</button>
+        </form>
+      </div>
     `;
   }
 
@@ -42,7 +44,11 @@ export default class GuessGenreView extends GameView {
 
     sendBtn.addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      this.handleAnswerSubmit();
+      const answersIdx = answers
+                          .filter((checkbox) => checkbox.checked)
+                          .map((elem) => elem.value.split(`-`)[1] - 1);
+
+      this.handleAnswerSubmit(answersIdx);
     });
 
     answers.forEach((elem) => elem.addEventListener(`change`, () => {

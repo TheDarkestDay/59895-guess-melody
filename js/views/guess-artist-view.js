@@ -15,7 +15,7 @@ export default class GuessArtistView extends GameView {
   }
 
   get template() {
-    const {answers} = this.props;
+    const {answers} = this.props.question;
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
@@ -42,8 +42,8 @@ export default class GuessArtistView extends GameView {
   }
 
   bind() {
-    const answers = [...this._element.querySelectorAll(`.main-answer`)];
-    answers.forEach((answer) => answer.addEventListener(`click`, this.handleAnswerSubmit));
+    const answers = [...this._element.querySelectorAll(`.main-answer-r`)];
+    answers.forEach((answer) => answer.addEventListener(`click`, (evt) => this.handleAnswerSubmit(evt)));
 
     const playerWrapper = this._element.querySelector(`.player-wrapper`);
     window.initializePlayer(playerWrapper, this.props.audioUrl);
