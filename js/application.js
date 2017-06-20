@@ -7,6 +7,7 @@ import createVictoryMessage from './model/create-victory-message.js';
 import fetchPreviousScores from './fetch-previous-scores.js';
 import defeat from './model/defeat.js';
 import calcGreatness from './calc-greatness.js';
+import greetings from './model/greetings.js';
 
 export default class Application {
 
@@ -21,10 +22,15 @@ export default class Application {
           this.openResultsScreen(defeat);
           break;
         default:
-          const playerScore = JSON.parse(location.hash.split(`=`)[1]);
-          const previousScores = fetchPreviousScores();
-          const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
-          this.openResultsScreen(victoryMessage);
+          try {
+            const playerScore = JSON.parse(location.hash.split(`=`)[1]);
+            const previousScores = fetchPreviousScores();
+            const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
+            this.openResultsScreen(victoryMessage);
+          } catch (error) {
+            location.hash = ``;
+            this.openWelcomeScreen(greetings);
+          }
           break;
       }
     });
