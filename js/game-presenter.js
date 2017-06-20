@@ -35,11 +35,11 @@ export default class GamePresenter {
 
     switch (this.state.screen) {
       case `artist`:
-        this.state.question = Object.assign(artistQuestion);
+        this.state.question = Object.assign({}, artistQuestion);
         Application.openGuessArtistScreen(this.state);
         break;
       case `genre`:
-        this.state.question = Object.assign(genreQuestion);
+        this.state.question = Object.assign({}, genreQuestion);
         Application.openGuessGenreScreen(this.state);
         break;
       case `results`:
