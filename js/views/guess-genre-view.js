@@ -1,4 +1,5 @@
 import GameView from './game-view.js';
+import {getAnswerIdx} from '../utils.js';
 
 export default class GuessGenreView extends GameView {
 
@@ -46,7 +47,7 @@ export default class GuessGenreView extends GameView {
       evt.preventDefault();
       const answersIdx = answers
                           .filter((checkbox) => checkbox.checked)
-                          .map((elem) => elem.value.split(`-`)[1] - 1);
+                          .map(getAnswerIdx);
 
       this.handleAnswerSubmit(answersIdx);
     });

@@ -1,3 +1,4 @@
+import renderScreen from '../render-screen.js';
 import GuessGenreView from '../views/guess-genre-view.js';
 import GamePresenter from '../game-presenter.js';
 
@@ -8,4 +9,10 @@ export default (currentState) => {
   view.handleAnswerSubmit = (answers) => {
     presenter.handleAnswerSubmit(answers);
   };
+
+  view.onComponentRendered = () => {
+    presenter.startTimer();
+  };
+
+  renderScreen(view);
 };

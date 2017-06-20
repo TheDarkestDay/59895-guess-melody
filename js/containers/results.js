@@ -1,3 +1,4 @@
+import renderScreen from '../render-screen.js';
 import ResultsView from '../views/results-view.js';
 import Application from '../application.js';
 import greetings from '../model/greetings.js';
@@ -9,5 +10,5 @@ export default (data) => {
     Application.openWelcomeScreen(greetings);
   };
 
-  return view;
+  renderScreen(view);
 };
