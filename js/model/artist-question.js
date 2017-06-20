@@ -1,5 +1,6 @@
 export default {
   audioUrl: `audio/Rooftops.mp3`,
+  rightAnswer: 0,
   answers: [
     {
       artist: `Silent Partner`,

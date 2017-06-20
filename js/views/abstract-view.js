@@ -14,11 +14,14 @@ export default class AbstractView {
     if (!this._element) {
       this._element = this.render();
       this.bind();
+      this.onComponentRendered();
     }
     return this._element;
   }
 
   bind() {}
+
+  onComponentRendered() {}
 
   render() {
     const viewContainer = document.createElement(`section`);
