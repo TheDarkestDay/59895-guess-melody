@@ -46,6 +46,6 @@ export default class GuessArtistView extends GameView {
     answers.forEach((answer) => answer.addEventListener(`click`, (evt) => this.handleAnswerSubmit(evt)));
 
     const playerWrapper = this._element.querySelector(`.player-wrapper`);
-    window.initializePlayer(playerWrapper, this.props.audioUrl);
+    window.initializePlayer(playerWrapper, this.props.question.audioUrl);
   }
 }
