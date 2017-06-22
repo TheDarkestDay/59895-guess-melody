@@ -11,28 +11,34 @@ import greetings from './model/greetings.js';
 
 export default class Application {
 
+  static renderViewMatchedToRoute() {
+    switch (location.hash) {
+      case `#game`:
+        const initialState = getInitialState();
+        this.openGuessArtistScreen(initialState);
+        break;
+      case `#results`:
+        this.openResultsScreen(defeat);
+        break;
+      default:
+        try {
+          const playerScore = JSON.parse(location.hash.split(`=`)[1]);
+          const previousScores = fetchPreviousScores();
+          const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
+          this.openResultsScreen(victoryMessage);
+        } catch (error) {
+          location.hash = ``;
+          this.openWelcomeScreen(greetings);
+        }
+        break;
+    }
+  }
+
   static init() {
+    this.renderViewMatchedToRoute();
+
     window.addEventListener(`hashchange`, () => {
-      switch (location.hash) {
-        case `#game`:
-          const initialState = getInitialState();
-          this.openGuessArtistScreen(initialState);
-          break;
-        case `#results`:
-          this.openResultsScreen(defeat);
-          break;
-        default:
-          try {
-            const playerScore = JSON.parse(location.hash.split(`=`)[1]);
-            const previousScores = fetchPreviousScores();
-            const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
-            this.openResultsScreen(victoryMessage);
-          } catch (error) {
-            location.hash = ``;
-            this.openWelcomeScreen(greetings);
-          }
-          break;
-      }
+      this.renderViewMatchedToRoute();
     });
   }
 
