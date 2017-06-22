@@ -1,6 +1,6 @@
 export function getArtistScreenState(extensions = {}) {
   return Object.assign({
-    screen: `artist`,
+    screen: `game`,
     lives: 3,
     questionsLeft: 10,
     question: {
@@ -30,7 +30,7 @@ export function getArtistScreenState(extensions = {}) {
 
 export function getGenreScreenState(extensions = {}) {
   return Object.assign({
-    screen: `genre`,
+    screen: `game`,
     lives: 3,
     questionsLeft: 10,
     question: {

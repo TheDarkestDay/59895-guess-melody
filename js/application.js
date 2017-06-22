@@ -18,7 +18,11 @@ export default class Application {
         break;
       case `#game`:
         const initialState = getInitialState();
-        this.openGuessArtistScreen(initialState);
+        if (initialState.question.type === `artist`) {
+          this.openGuessArtistScreen(initialState);
+        } else {
+          this.openGuessGenreScreen(initialState);
+        }
         break;
       case `#results`:
         this.openResultsScreen(defeat);

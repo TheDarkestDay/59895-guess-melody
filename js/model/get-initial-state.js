@@ -1,12 +1,12 @@
-import artistQuestion from './artist-question.js';
+import QuestionGateaway from './question-gateaway.js';
 
 export default function getInitialState() {
   return {
     duration: 180,
     timeLeft: 180,
-    screen: `artist`,
+    screen: `game`,
     lives: 3,
     questionsLeft: 10,
-    question: Object.assign(artistQuestion)
+    question: Object.assign({}, QuestionGateaway.getNext())
   };
 }

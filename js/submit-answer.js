@@ -27,13 +27,7 @@ function getNextScreen(gameState) {
   if (gameState.lives === 0 || gameState.timeLeft === 0 || gameState.questionsLeft === 0) {
     return `results`;
   }
-
-  const randomNum = Math.random();
-  if (randomNum > 0.5) {
-    return `genre`;
-  }
-
-  return `artist`;
+  return gameState.screen;
 }
 
 export default function submitAnswer(gameState, answer) {
