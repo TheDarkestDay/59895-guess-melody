@@ -13,6 +13,9 @@ export default class Application {
 
   static renderViewMatchedToRoute() {
     switch (location.hash) {
+      case ``:
+        this.openWelcomeScreen(greetings);
+        break;
       case `#game`:
         const initialState = getInitialState();
         this.openGuessArtistScreen(initialState);
@@ -28,7 +31,6 @@ export default class Application {
           this.openResultsScreen(victoryMessage);
         } catch (error) {
           location.hash = ``;
-          this.openWelcomeScreen(greetings);
         }
         break;
     }

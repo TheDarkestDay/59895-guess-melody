@@ -45,9 +45,9 @@ export default class GamePresenter {
             time: this.state.duration - this.state.timeLeft,
             answers: calcRightAnswers(this.state)
           };
-          location.hash = `#results=${JSON.stringify(playerScore)}`;
+          location.hash = `results=${JSON.stringify(playerScore)}`;
         } else {
-          location.hash = `#results`;
+          location.hash = `results`;
         }
         break;
     }
