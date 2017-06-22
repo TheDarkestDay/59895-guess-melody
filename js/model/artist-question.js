@@ -1,18 +1,34 @@
 export default {
-  audioUrl: `audio/Rooftops.mp3`,
-  rightAnswer: 0,
+  type: `artist`,
+  question: `Кто исполняет эту песню?`,
+  src: `audio/Rooftops.mp3`,
   answers: [
     {
-      artist: `Silent Partner`,
-      pictureUrl: `http://images.huffingtonpost.com/2014-07-01-HuffPo.Buellton.jpg`
+      title: `Silent Partner`,
+      image: {
+        url: `http://images.huffingtonpost.com/2014-07-01-HuffPo.Buellton.jpg`,
+        width: 300,
+        height: 300
+      },
+      isCorrect: true,
     },
     {
-      artist: `Lordi`,
-      pictureUrl: `https://actionlist.ru/img/artist/13691/0.jpg`
+      title: `Lordi`,
+      image: {
+        url: `https://actionlist.ru/img/artist/13691/0.jpg`,
+        width: 300,
+        height: 300
+      },
+      isCorrect: false
     },
     {
-      artist: `Pink Floyd`,
-      pictureUrl: `https://img.discogs.com/RPhPKJ8PWTZCQjs3zU8W8okB4GE=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-45467-1405593302-8633.jpeg.jpg`
+      title: `Pink Floyd`,
+      image: {
+        url: `http://placehold.it/705x455`,
+        width: 300,
+        height: 300
+      },
+      isCorrect: false
     }
   ]
 };
