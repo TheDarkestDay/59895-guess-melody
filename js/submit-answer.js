@@ -1,16 +1,26 @@
 
-function checkAnswer(submited, correct) {
-  if (typeof submited === `number`) {
-    return submited === correct;
-  }
+function checkArtistAnswer(answerIdx, question) {
+  return question.answers[answerIdx].isCorrect;
+}
 
-  if (submited.length === correct.length) {
-    const wrongValues = submited.filter((elem) => correct.indexOf(elem) === -1);
+function checkGenreAnswer(answerIdxArr, question) {
+  const correctTracks = question.answers.filter((track) => track.genre === question.genre);
+  const selectedTracks = answerIdxArr.map((idx) => question.answers[idx]);
 
-    return wrongValues.length === 0;
+  if (correctTracks.length === selectedTracks.length && selectedTracks.every((track) => track.genre === question.genre)) {
+    return true;
   }
 
   return false;
+}
+
+
+function checkAnswer(answer, question) {
+  if (question.type === `genre`) {
+    return checkGenreAnswer(answer, question);
+  } else {
+    return checkArtistAnswer(answer, question);
+  }
 }
 
 function getNextScreen(gameState) {
@@ -27,7 +37,7 @@ function getNextScreen(gameState) {
 }
 
 export default function submitAnswer(gameState, answer) {
-  const newLives = checkAnswer(answer, gameState.question.rightAnswer)
+  const newLives = checkAnswer(answer, gameState.question)
     ? gameState.lives
     : gameState.lives - 1;
 

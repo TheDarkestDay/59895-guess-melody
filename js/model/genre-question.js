@@ -1,21 +1,27 @@
 export default {
-  targetGenre: `инди-рок`,
-  rightAnswer: [1, 2, 3],
+  type: `genre`,
+  genre: `indie-rock`,
+  question: `Выберите инди-рок треки`,
   answers: [
     {
-      audioUrl: `audio/Air_Hockey_Saloon.mp3`
+      src: `audio/Air_Hockey_Saloon.mp3`,
+      genre: `rock`
     },
     {
-      audioUrl: `audio/Automotive_Force.mp3`
+      src: `audio/Automotive_Force.mp3`,
+      genre: `indie-rock`
     },
     {
-      audioUrl: `audio/Highway_Girl.mp3`
+      src: `audio/Highway_Girl.mp3`,
+      genre: `indie-rock`
     },
     {
-      audioUrl: `audio/Rooftops.mp3`
+      src: `audio/Rooftops.mp3`,
+      genre: `indie-rock`
     },
     {
-      audioUrl: `audio/Scissor_Vision.mp3`
+      src: `audio/Scissor_Vision.mp3`,
+      genre: `ambient`
     }
   ]
 };
