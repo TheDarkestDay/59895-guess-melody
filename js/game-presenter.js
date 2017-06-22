@@ -1,10 +1,7 @@
 import submitAnswer from './submit-answer.js';
-import calcGreatness from './calc-greatness.js';
-import fetchPreviousScores from './fetch-previous-scores.js';
 import Application from './application.js';
 import genreQuestion from './model/genre-question.js';
 import artistQuestion from './model/artist-question.js';
-import createVictoryMessage from './model/victory.js';
 import defeat from './model/defeat.js';
 import {calcRightAnswers} from './utils.js';
 
@@ -48,11 +45,9 @@ export default class GamePresenter {
             time: this.state.duration - this.state.timeLeft,
             answers: calcRightAnswers(this.state)
           };
-          const previousScores = fetchPreviousScores();
-          const victoryMessage = createVictoryMessage(this.state, calcGreatness(playerScore, previousScores));
-          Application.openResultsScreen(victoryMessage);
+          location.hash = `results=${JSON.stringify(playerScore)}`;
         } else {
-          Application.openResultsScreen(defeat);
+          location.hash = `results`;
         }
         break;
     }

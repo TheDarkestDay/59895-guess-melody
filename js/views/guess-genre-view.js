@@ -41,6 +41,7 @@ export default class GuessGenreView extends GameView {
   bind() {
     const answers = [...this._element.querySelectorAll(`input[type="checkbox"]`)];
     const sendBtn = this._element.querySelector(`.genre-answer-send`);
+    const tracks = [...this._element.querySelectorAll(`.player-wrapper`)];
     sendBtn.disabled = true;
 
     sendBtn.addEventListener(`click`, (evt) => {
@@ -50,6 +51,10 @@ export default class GuessGenreView extends GameView {
                           .map(getAnswerIdx);
 
       this.handleAnswerSubmit(answersIdx);
+    });
+
+    tracks.forEach((track, idx) => {
+      window.initializePlayer(track, this.props.question.answers[idx].audioUrl);
     });
 
     answers.forEach((elem) => elem.addEventListener(`change`, () => {
