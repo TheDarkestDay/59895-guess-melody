@@ -31,13 +31,17 @@ export default class GamePresenter {
 
     switch (this.state.screen) {
       case `game`:
-        const nextQuestion = QuestionGateaway.getNext();
-        this.state.question = Object.assign({}, nextQuestion);
-        if (nextQuestion.type === `artist`) {
-          Application.openGuessArtistScreen(this.state);
-        } else {
-          Application.openGuessGenreScreen(this.state);
-        }
+        QuestionGateaway
+          .getNext()
+          .then((nextQuestion) => {
+            console.log(nextQuestion);
+            this.state.question = Object.assign({}, nextQuestion);
+            if (nextQuestion.type === `artist`) {
+              Application.openGuessArtistScreen(this.state);
+            } else {
+              Application.openGuessGenreScreen(this.state);
+            }
+          });
         break;
       case `results`:
         if (this.state.questionsLeft === 0) {

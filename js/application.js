@@ -8,6 +8,7 @@ import fetchPreviousScores from './fetch-previous-scores.js';
 import defeat from './model/defeat.js';
 import calcGreatness from './calc-greatness.js';
 import greetings from './model/greetings.js';
+import QuestionGateaway from './model/question-gateaway.js';
 
 export default class Application {
 
@@ -17,12 +18,17 @@ export default class Application {
         this.openWelcomeScreen(greetings);
         break;
       case `#game`:
-        const initialState = getInitialState();
-        if (initialState.question.type === `artist`) {
-          this.openGuessArtistScreen(initialState);
-        } else {
-          this.openGuessGenreScreen(initialState);
-        }
+        QuestionGateaway
+          .getNext()
+          .then((nextQuestion) => {
+            const initialState = getInitialState();
+            initialState.question = nextQuestion;
+            if (nextQuestion.type === `artist`) {
+              this.openGuessArtistScreen(initialState);
+            } else {
+              this.openGuessGenreScreen(initialState);
+            }
+          });
         break;
       case `#results`:
         this.openResultsScreen(defeat);
