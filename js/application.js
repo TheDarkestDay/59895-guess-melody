@@ -19,17 +19,7 @@ export default class Application {
         this.openWelcomeScreen(greetings);
         break;
       case `#game`:
-        QuestionGateaway
-          .getNext()
-          .then((nextQuestion) => {
-            const initialState = getInitialState();
-            initialState.question = nextQuestion;
-            if (nextQuestion.type === QuestionTypes.ARTIST) {
-              this.openGuessArtistScreen(initialState);
-            } else {
-              this.openGuessGenreScreen(initialState);
-            }
-          });
+        this.openNextQuestionScreen(getInitialState());
         break;
       case `#results`:
         this.openResultsScreen(defeat);
@@ -53,6 +43,19 @@ export default class Application {
     window.addEventListener(`hashchange`, () => {
       this.renderViewMatchedToRoute();
     });
+  }
+
+  static openNextQuestionScreen(currentState) {
+    QuestionGateaway
+      .getNext()
+      .then((nextQuestion) => {
+        currentState.question = nextQuestion;
+        if (nextQuestion.type === QuestionTypes.ARTIST) {
+          this.openGuessArtistScreen(currentState);
+        } else {
+          this.openGuessGenreScreen(currentState);
+        }
+      });
   }
 
   static openWelcomeScreen(props) {

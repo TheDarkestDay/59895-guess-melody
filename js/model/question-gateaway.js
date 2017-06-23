@@ -17,19 +17,19 @@ class QuestionGateaway {
   }
 
   getNext() {
-    return new Promise((resolve, reject) => {
-      if (this.questions.length !== 0) {
-        resolve(this._getNextQuestion());
-      } else {
+    if (this.questions.length !== 0) {
+      return Promise.resolve(this._getNextQuestion());
+    } else {
+      return new Promise((resolve, reject) => {
         fetch(this.url)
           .then((response) => response.json())
           .then((questions) => {
             this.questions = questions;
-            resolve(this.questions[this.counter]);
+            resolve(this._getNextQuestion());
           })
           .catch((err) => reject(err));
-      }
-    });
+      });
+    }
   }
 }
 

@@ -32,7 +32,8 @@ export default class GamePresenter {
 
     switch (this.state.screen) {
       case `game`:
-        QuestionGateaway
+        Application.openNextQuestionScreen(this.state);
+      /*  QuestionGateaway
           .getNext()
           .then((nextQuestion) => {
             this.state.question = Object.assign({}, nextQuestion);
@@ -41,7 +42,7 @@ export default class GamePresenter {
             } else {
               Application.openGuessGenreScreen(this.state);
             }
-          });
+          }); */
         break;
       case `results`:
         if (this.state.questionsLeft === 0) {
