@@ -9,6 +9,7 @@ import defeat from './model/defeat.js';
 import calcGreatness from './calc-greatness.js';
 import greetings from './model/greetings.js';
 import QuestionGateaway from './model/question-gateaway.js';
+import QuestionTypes from './model/question-types.js';
 
 export default class Application {
 
@@ -23,7 +24,7 @@ export default class Application {
           .then((nextQuestion) => {
             const initialState = getInitialState();
             initialState.question = nextQuestion;
-            if (nextQuestion.type === `artist`) {
+            if (nextQuestion.type === QuestionTypes.ARTIST) {
               this.openGuessArtistScreen(initialState);
             } else {
               this.openGuessGenreScreen(initialState);

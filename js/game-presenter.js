@@ -3,6 +3,7 @@ import Application from './application.js';
 import defeat from './model/defeat.js';
 import {calcRightAnswers} from './utils.js';
 import QuestionGateaway from './model/question-gateaway.js';
+import QuestionTypes from './model/question-types.js';
 
 export default class GamePresenter {
   constructor(state, view) {
@@ -34,9 +35,8 @@ export default class GamePresenter {
         QuestionGateaway
           .getNext()
           .then((nextQuestion) => {
-            console.log(nextQuestion);
             this.state.question = Object.assign({}, nextQuestion);
-            if (nextQuestion.type === `artist`) {
+            if (nextQuestion.type === QuestionTypes.ARTIST) {
               Application.openGuessArtistScreen(this.state);
             } else {
               Application.openGuessGenreScreen(this.state);

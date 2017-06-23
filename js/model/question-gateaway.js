@@ -10,10 +10,9 @@ class QuestionGateaway {
   }
 
   _getNextQuestion() {
-    this.counter += 1;
-    if (this.counter === this.questions.length) {
-      this.counter = 0;
-    }
+    this.counter = this.counter === this.questions.length - 1
+                    ? 0
+                    : this.counter + 1;
     return this.questions[this.counter];
   }
 
@@ -27,7 +26,8 @@ class QuestionGateaway {
           .then((questions) => {
             this.questions = questions;
             resolve(this.questions[this.counter]);
-          });
+          })
+          .catch((err) => reject(err));
       }
     });
   }
