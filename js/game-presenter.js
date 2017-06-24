@@ -1,7 +1,5 @@
 import submitAnswer from './submit-answer.js';
 import Application from './application.js';
-import genreQuestion from './model/genre-question.js';
-import artistQuestion from './model/artist-question.js';
 import defeat from './model/defeat.js';
 import {calcRightAnswers} from './utils.js';
 
@@ -31,13 +29,8 @@ export default class GamePresenter {
     this.state = submitAnswer(this.state, answer);
 
     switch (this.state.screen) {
-      case `artist`:
-        this.state.question = Object.assign({}, artistQuestion);
-        Application.openGuessArtistScreen(this.state);
-        break;
-      case `genre`:
-        this.state.question = Object.assign({}, genreQuestion);
-        Application.openGuessGenreScreen(this.state);
+      case `game`:
+        Application.openNextQuestionScreen(this.state);
         break;
       case `results`:
         if (this.state.questionsLeft === 0) {

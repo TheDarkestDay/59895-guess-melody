@@ -14,7 +14,7 @@ export default class GuessGenreView extends GameView {
   }
 
   get template() {
-    const {answers, targetGenre} = this.props.question;
+    const {answers, question} = this.props.question;
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
@@ -29,7 +29,7 @@ export default class GuessGenreView extends GameView {
         </div>
       </svg>
       <div class="main-wrap">
-        <h2 class="title">Выберите ${targetGenre} треки</h2>
+        <h2 class="title">${question}</h2>
         <form class="genre">
           ${answers.map(this.generateAnswerMarkup).join(``)}
           <button class="genre-answer-send" type="submit">Ответить</button>
@@ -54,7 +54,7 @@ export default class GuessGenreView extends GameView {
     });
 
     tracks.forEach((track, idx) => {
-      window.initializePlayer(track, this.props.question.answers[idx].audioUrl);
+      window.initializePlayer(track, this.props.question.answers[idx].src);
     });
 
     answers.forEach((elem) => elem.addEventListener(`change`, () => {

@@ -8,6 +8,8 @@ import fetchPreviousScores from './fetch-previous-scores.js';
 import defeat from './model/defeat.js';
 import calcGreatness from './calc-greatness.js';
 import greetings from './model/greetings.js';
+import QuestionGateaway from './model/question-gateaway.js';
+import QuestionTypes from './model/question-types.js';
 
 export default class Application {
 
@@ -17,8 +19,7 @@ export default class Application {
         this.openWelcomeScreen(greetings);
         break;
       case `#game`:
-        const initialState = getInitialState();
-        this.openGuessArtistScreen(initialState);
+        this.openNextQuestionScreen(getInitialState());
         break;
       case `#results`:
         this.openResultsScreen(defeat);
@@ -42,6 +43,19 @@ export default class Application {
     window.addEventListener(`hashchange`, () => {
       this.renderViewMatchedToRoute();
     });
+  }
+
+  static openNextQuestionScreen(currentState) {
+    QuestionGateaway
+      .getNext()
+      .then((nextQuestion) => {
+        currentState.question = nextQuestion;
+        if (nextQuestion.type === QuestionTypes.ARTIST) {
+          this.openGuessArtistScreen(currentState);
+        } else {
+          this.openGuessGenreScreen(currentState);
+        }
+      });
   }
 
   static openWelcomeScreen(props) {

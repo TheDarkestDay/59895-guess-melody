@@ -1,19 +1,27 @@
 export function getArtistScreenState(extensions = {}) {
   return Object.assign({
-    screen: `artist`,
+    screen: `game`,
     lives: 3,
     questionsLeft: 10,
     question: {
-      rightAnswer: 0,
+      type: `artist`,
+      question: `Кто исполняет эту песню?`,
+      src: `some-fake-url`,
       answers: [
         {
-          artist: `Artist #1`
+          image: {},
+          title: `Artist #1`,
+          isCorrect: true
         },
         {
-          artist: `Artist #2`
+          image: {},
+          title: `Artist #2`,
+          isCorrect: false
         },
         {
-          artist: `Artist #3`
+          image: {},
+          title: `Artist #3`,
+          isCorrect: false
         }
       ]
     }
@@ -22,23 +30,29 @@ export function getArtistScreenState(extensions = {}) {
 
 export function getGenreScreenState(extensions = {}) {
   return Object.assign({
-    screen: `genre`,
+    screen: `game`,
     lives: 3,
     questionsLeft: 10,
     question: {
-      rightAnswer: [0, 1, 3],
+      type: `genre`,
+      question: `Выберите инди-рок треки`,
+      genre: `indie-rock`,
       answers: [
         {
-          audioUrl: `some-fake-url`
+          src: `some-fake-url`,
+          genre: `indie-rock`
         },
         {
-          audioUrl: `some-fake-url`
+          src: `some-fake-url`,
+          genre: `indie-rock`
         },
         {
-          audioUrl: `some-fake-url`
+          src: `some-fake-url`,
+          genre: `ambient`
         },
         {
-          audioUrl: `some-fake-url`
+          src: `some-fake-url`,
+          genre: `indie-rock`
         }
       ]
     }
