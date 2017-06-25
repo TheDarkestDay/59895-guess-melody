@@ -6,6 +6,11 @@ import {calcRightAnswers} from './utils.js';
 export default class GamePresenter {
   constructor(state, view) {
     this.state = state;
+    if (this.state.question.type === `artist`) {
+      console.log(this.state.question.answers.findIndex((elem) => elem.isCorrect));
+    } else {
+      console.log(this.state.question.answers.map((elem) => elem.genre === this.state.question.genre));
+    }
     this.view = view;
   }
 

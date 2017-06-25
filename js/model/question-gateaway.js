@@ -2,7 +2,6 @@
 
 class QuestionGateaway {
 
-
   constructor() {
     this.url = `https://intensive-ecmascript-server-btfgudlkpi.now.sh/guess-melody/questions`;
     this.counter = 0;
@@ -20,15 +19,12 @@ class QuestionGateaway {
     if (this.questions.length !== 0) {
       return Promise.resolve(this._getNextQuestion());
     } else {
-      return new Promise((resolve, reject) => {
-        fetch(this.url)
-          .then((response) => response.json())
-          .then((questions) => {
-            this.questions = questions;
-            resolve(this._getNextQuestion());
-          })
-          .catch((err) => reject(err));
-      });
+      return fetch(this.url)
+        .then((response) => response.json())
+        .then((questions) => {
+          this.questions = questions;
+          return this._getNextQuestion();
+        });
     }
   }
 }
