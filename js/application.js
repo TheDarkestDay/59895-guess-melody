@@ -4,11 +4,11 @@ import guessArtistContainer from './containers/guess-artist.js';
 import guessGenreContainer from './containers/guess-genre.js';
 import getInitialState from './model/get-initial-state.js';
 import createVictoryMessage from './model/create-victory-message.js';
-import fetchPreviousScores from './fetch-previous-scores.js';
 import defeat from './model/defeat.js';
 import calcGreatness from './calc-greatness.js';
 import greetings from './model/greetings.js';
 import QuestionGateaway from './model/question-gateaway.js';
+import StatsGateaway from './model/stats-gateaway.js';
 import QuestionTypes from './model/question-types.js';
 
 export default class Application {
@@ -27,9 +27,13 @@ export default class Application {
       default:
         try {
           const playerScore = JSON.parse(location.hash.split(`=`)[1]);
-          const previousScores = fetchPreviousScores();
-          const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
-          this.openResultsScreen(victoryMessage);
+          StatsGateaway.publish(playerScore);
+          StatsGateaway
+            .getPreviousData()
+            .then((previousScores) => {
+              const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
+              this.openResultsScreen(victoryMessage);
+            });
         } catch (error) {
           location.hash = ``;
         }
