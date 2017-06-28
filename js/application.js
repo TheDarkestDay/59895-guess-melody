@@ -27,12 +27,11 @@ export default class Application {
       default:
         try {
           const playerScore = JSON.parse(location.hash.split(`=`)[1]);
-          StatsGateaway.publish(playerScore);
+          await StatsGateaway.publish(playerScore);
           const previousScores = await StatsGateaway.getPreviousData();
           const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
           this.openResultsScreen(victoryMessage);
         } catch (error) {
-          console.log(error);
           location.hash = ``;
         }
         break;

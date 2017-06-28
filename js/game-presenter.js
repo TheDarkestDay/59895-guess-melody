@@ -1,17 +1,11 @@
 import submitAnswer from './submit-answer.js';
 import Application from './application.js';
-import defeat from './model/defeat.js';
 import {calcRightAnswers} from './utils.js';
 
 export default class GamePresenter {
   constructor(state, view) {
     this.state = state;
     this.view = view;
-    if (this.state.question.type === `artist`) {
-      console.log(this.state.question.answers.findIndex((elem) => elem.isCorrect));
-    } else {
-      console.log(this.state.question.answers.map((elem) => elem.genre === this.state.question.genre));
-    }
   }
 
   startTimer() {
@@ -26,7 +20,7 @@ export default class GamePresenter {
     this.view.renderTime(this.state.timeLeft);
 
     if (this.state.timeLeft === 0) {
-      Application.openResultsScreen(defeat);
+      location.hash = `results`;
     }
   }
 
@@ -45,6 +39,7 @@ export default class GamePresenter {
           };
           location.hash = `results=${JSON.stringify(playerScore)}`;
         } else {
+          clearInterval(this.interval);
           location.hash = `results`;
         }
         break;
