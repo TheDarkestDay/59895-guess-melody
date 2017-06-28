@@ -1,6 +1,5 @@
 import submitAnswer from './submit-answer.js';
 import Application from './application.js';
-import defeat from './model/defeat.js';
 import {calcRightAnswers} from './utils.js';
 
 export default class GamePresenter {
@@ -21,7 +20,7 @@ export default class GamePresenter {
     this.view.renderTime(this.state.timeLeft);
 
     if (this.state.timeLeft === 0) {
-      Application.openResultsScreen(defeat);
+      location.hash = `results`;
     }
   }
 
@@ -40,6 +39,7 @@ export default class GamePresenter {
           };
           location.hash = `results=${JSON.stringify(playerScore)}`;
         } else {
+          clearInterval(this.interval);
           location.hash = `results`;
         }
         break;

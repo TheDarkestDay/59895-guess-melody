@@ -46,19 +46,20 @@ gulp.task('scripts', function () {
   return gulp.src('js/**/*.js')
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(rollup({plugins: [
-      commonjs,
-      nodeResolve,
-      babel({
-        babelrc: false,
-        exclude: 'node_modules/**',
-        presets: [
-          ['env', {modules: false}]
-        ],
-        plugins: [
-          'external-helpers',
-        ]
-      })
+    .pipe(rollup({
+      plugins: [
+        nodeResolve({jsnext: true, main: true}),
+        commonjs(),
+        babel({
+          babelrc: false,
+          exclude: 'node_modules/**',
+          presets: [
+            ['env', {modules: false}]
+          ],
+          plugins: [
+            'external-helpers',
+          ]
+        })
     ]}, 'iife'))
     .pipe(uglify())
     .pipe(sourcemaps.write(''))

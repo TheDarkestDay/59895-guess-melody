@@ -1,4 +1,4 @@
-
+import 'babel-polyfill';
 
 class QuestionGateaway {
 
@@ -15,16 +15,14 @@ class QuestionGateaway {
     return this.questions[this.counter];
   }
 
-  getNext() {
+  async getNext() {
     if (this.questions.length !== 0) {
       return Promise.resolve(this._getNextQuestion());
     } else {
-      return fetch(this.url)
-        .then((response) => response.json())
-        .then((questions) => {
-          this.questions = questions;
-          return this._getNextQuestion();
-        });
+      const response = await fetch(this.url);
+      const questions = await response.json();
+      this.questions = questions;
+      return this._getNextQuestion();
     }
   }
 }
