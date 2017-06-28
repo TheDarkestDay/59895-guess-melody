@@ -13,7 +13,7 @@ import QuestionTypes from './model/question-types.js';
 
 export default class Application {
 
-  static renderViewMatchedToRoute() {
+  static async renderViewMatchedToRoute() {
     switch (location.hash) {
       case ``:
         this.openWelcomeScreen(greetings);
@@ -28,13 +28,11 @@ export default class Application {
         try {
           const playerScore = JSON.parse(location.hash.split(`=`)[1]);
           StatsGateaway.publish(playerScore);
-          StatsGateaway
-            .getPreviousData()
-            .then((previousScores) => {
-              const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
-              this.openResultsScreen(victoryMessage);
-            });
+          const previousScores = await StatsGateaway.getPreviousData();
+          const victoryMessage = createVictoryMessage(playerScore, calcGreatness(playerScore, previousScores));
+          this.openResultsScreen(victoryMessage);
         } catch (error) {
+          console.log(error);
           location.hash = ``;
         }
         break;
@@ -49,17 +47,14 @@ export default class Application {
     });
   }
 
-  static openNextQuestionScreen(currentState) {
-    QuestionGateaway
-      .getNext()
-      .then((nextQuestion) => {
-        currentState.question = nextQuestion;
-        if (nextQuestion.type === QuestionTypes.ARTIST) {
-          this.openGuessArtistScreen(currentState);
-        } else {
-          this.openGuessGenreScreen(currentState);
-        }
-      });
+  static async openNextQuestionScreen(currentState) {
+    const nextQuestion = await QuestionGateaway.getNext();
+    currentState.question = nextQuestion;
+    if (nextQuestion.type === QuestionTypes.ARTIST) {
+      this.openGuessArtistScreen(currentState);
+    } else {
+      this.openGuessGenreScreen(currentState);
+    }
   }
 
   static openWelcomeScreen(props) {
