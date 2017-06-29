@@ -30,7 +30,7 @@ export default class GamePresenter {
 
   handleAnswerSubmit(answer) {
     this.state = submitAnswer(this.state, answer);
- //   this.destroy();
+    this.destroy();
 
     switch (this.state.screen) {
       case `game`:
