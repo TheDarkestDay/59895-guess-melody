@@ -8,6 +8,10 @@ export default class GamePresenter {
     this.view = view;
   }
 
+  destroy() {
+    clearInterval(this.interval);
+  }
+
   startTimer() {
     this.updateTimer();
     this.interval = setInterval(() => this.updateTimer(), 1000);
@@ -26,6 +30,7 @@ export default class GamePresenter {
 
   handleAnswerSubmit(answer) {
     this.state = submitAnswer(this.state, answer);
+    this.destroy();
 
     switch (this.state.screen) {
       case `game`:
@@ -39,7 +44,6 @@ export default class GamePresenter {
           };
           location.hash = `results=${JSON.stringify(playerScore)}`;
         } else {
-          clearInterval(this.interval);
           location.hash = `results`;
         }
         break;
