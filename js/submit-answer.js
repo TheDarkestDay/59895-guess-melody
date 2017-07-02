@@ -38,14 +38,25 @@ function getNextScreen(gameState) {
   return gameState.screen;
 }
 
+const BONUS_THRESHOLD = 10;
+
 export default function submitAnswer(gameState, answer) {
-  const newLives = checkAnswer(answer, gameState.question)
-    ? gameState.lives
-    : gameState.lives - 1;
+  const isAnswerCorrect = checkAnswer(answer, gameState.question);
+  let newLives = gameState.lives;
+  let newScore = gameState.score;
+
+  if (isAnswerCorrect) {
+    newScore = (gameState.timeLeft - gameState.lastQuestionStartTime) < BONUS_THRESHOLD
+      ? newScore + 2
+      : newScore + 1;
+  } else {
+    newLives = newLives - 1;
+  }
 
   const newState = Object.assign({}, gameState, {
     questionsLeft: gameState.questionsLeft - 1,
-    lives: newLives
+    lives: newLives,
+    score: newScore
   });
 
   newState.screen = getNextScreen(newState);

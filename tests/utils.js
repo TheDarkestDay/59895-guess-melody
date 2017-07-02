@@ -1,8 +1,11 @@
 export function getArtistScreenState(extensions = {}) {
   return Object.assign({
+    timeLeft: 120,
     screen: `game`,
     lives: 3,
     questionsLeft: 10,
+    score: 0,
+    lastQuestionStartTime: 0,
     question: {
       type: `artist`,
       question: `Кто исполняет эту песню?`,
