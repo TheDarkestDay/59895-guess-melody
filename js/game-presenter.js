@@ -14,7 +14,9 @@ export default class GamePresenter {
 
   startTimer() {
     this.updateTimer();
-    this.interval = setInterval(() => this.updateTimer(), 1000);
+    this.interval = setInterval(() => {
+      this.updateTimer();
+    }, 1000);
   }
 
   updateTimer() {

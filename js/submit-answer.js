@@ -1,13 +1,21 @@
 
+function isTrackCorrect(question) {
+  return function (track) {
+    return track.genre === question.genre;
+  };
+}
+
 function checkArtistAnswer(answerIdx, question) {
   return question.answers[answerIdx].isCorrect;
 }
 
 function checkGenreAnswer(answerIdxArr, question) {
-  const correctTracks = question.answers.filter((track) => track.genre === question.genre);
-  const selectedTracks = answerIdxArr.map((idx) => question.answers[idx]);
+  const correctTracks = question.answers.filter(isTrackCorrect(question));
+  const selectedTracks = answerIdxArr.map((idx) => {
+    return question.answers[idx];
+  });
 
-  if (correctTracks.length === selectedTracks.length && selectedTracks.every((track) => track.genre === question.genre)) {
+  if (correctTracks.length === selectedTracks.length && selectedTracks.every(isTrackCorrect(question))) {
     return true;
   }
 

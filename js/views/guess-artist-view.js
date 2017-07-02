@@ -39,7 +39,11 @@ export default class GuessArtistView extends GameView {
 
   bind() {
     const answers = [...this._element.querySelectorAll(`.main-answer-r`)];
-    answers.forEach((answer) => answer.addEventListener(`click`, (evt) => this.handleAnswerSubmit(evt)));
+    answers.forEach((answer) => {
+      answer.addEventListener(`click`, (evt) => {
+        this.handleAnswerSubmit(evt);
+      });
+    });
 
     const playerWrapper = this._element.querySelector(`.player-wrapper`);
     window.initializePlayer(playerWrapper, this.props.question.src);
