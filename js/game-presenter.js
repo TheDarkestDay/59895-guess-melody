@@ -1,10 +1,10 @@
 import submitAnswer from './submit-answer.js';
 import Application from './application.js';
-import {calcRightAnswers} from './utils.js';
 
 export default class GamePresenter {
   constructor(state, view) {
     this.state = state;
+    this.state.lastQuestionStartTime = this.state.timeLeft;
     this.view = view;
   }
 
@@ -42,7 +42,7 @@ export default class GamePresenter {
         if (this.state.questionsLeft === 0) {
           const playerScore = {
             time: this.state.duration - this.state.timeLeft,
-            answers: calcRightAnswers(this.state)
+            answers: this.state.score
           };
           location.hash = `results=${JSON.stringify(playerScore)}`;
         } else {
