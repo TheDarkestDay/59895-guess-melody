@@ -13,7 +13,9 @@ export default function calcGreatness(newResult, previousResults) {
 
   allResults.sort(compareScores);
 
-  let newResultPlace = allResults.findIndex((elem) => compareScores(newResult, elem) < 0);
+  let newResultPlace = allResults.findIndex((elem) => {
+    return compareScores(newResult, elem) < 0;
+  });
 
   if (newResultPlace === -1) {
     newResultPlace = allResults.length;

@@ -25,6 +25,28 @@ describe(`submit answer function`, () => {
     assert.equal(nextState.lives, initialState.lives);
   });
 
+  it(`should increase score in case of right answer`, () => {
+    const initialState = getArtistScreenState();
+    const nextState = submitAnswer(initialState, 0);
+
+    assert.equal(nextState.score, initialState.score + 1);
+  });
+
+  it(`should add bonus point in case of fast right answer`, () => {
+    const initialState = getArtistScreenState();
+    initialState.lastQuestionStartTime = 115;
+    const nextState = submitAnswer(initialState, 0);
+
+    assert.equal(nextState.score, initialState.score + 2);
+  });
+
+  it(`should not increase score in case of wrong answer`, () => {
+    const initialState = getArtistScreenState();
+    const nextState = submitAnswer(initialState, 1);
+
+    assert.equal(nextState.score, initialState.score);
+  });
+
   it(`should treat partitionally right answer as wrong one`, () => {
     const initialState = getGenreScreenState();
     const nextState = submitAnswer(initialState, [1, 3]);

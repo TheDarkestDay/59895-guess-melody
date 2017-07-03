@@ -43,7 +43,7 @@ const destroyPlayer = (element, state) => {
 
 
 window.initializePlayer = (element, file, autoplay = false, controllable = true) => {
-  let state = {};
+  const state = {};
 
   const content = document.querySelector(`template`)
     .content

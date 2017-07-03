@@ -1,13 +1,21 @@
 
+function isTrackCorrect(question) {
+  return function (track) {
+    return track.genre === question.genre;
+  };
+}
+
 function checkArtistAnswer(answerIdx, question) {
   return question.answers[answerIdx].isCorrect;
 }
 
 function checkGenreAnswer(answerIdxArr, question) {
-  const correctTracks = question.answers.filter((track) => track.genre === question.genre);
-  const selectedTracks = answerIdxArr.map((idx) => question.answers[idx]);
+  const correctTracks = question.answers.filter(isTrackCorrect(question));
+  const selectedTracks = answerIdxArr.map((idx) => {
+    return question.answers[idx];
+  });
 
-  if (correctTracks.length === selectedTracks.length && selectedTracks.every((track) => track.genre === question.genre)) {
+  if (correctTracks.length === selectedTracks.length && selectedTracks.every(isTrackCorrect(question))) {
     return true;
   }
 
@@ -30,14 +38,25 @@ function getNextScreen(gameState) {
   return gameState.screen;
 }
 
+const BONUS_THRESHOLD = 10;
+
 export default function submitAnswer(gameState, answer) {
-  const newLives = checkAnswer(answer, gameState.question)
-    ? gameState.lives
-    : gameState.lives - 1;
+  const isAnswerCorrect = checkAnswer(answer, gameState.question);
+  let newLives = gameState.lives;
+  let newScore = gameState.score;
+
+  if (isAnswerCorrect) {
+    newScore = (gameState.timeLeft - gameState.lastQuestionStartTime) < BONUS_THRESHOLD
+      ? newScore + 2
+      : newScore + 1;
+  } else {
+    newLives = newLives - 1;
+  }
 
   const newState = Object.assign({}, gameState, {
     questionsLeft: gameState.questionsLeft - 1,
-    lives: newLives
+    lives: newLives,
+    score: newScore
   });
 
   newState.screen = getNextScreen(newState);
