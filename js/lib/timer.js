@@ -24,7 +24,9 @@ const redrawCircle = (circle, radius, animation) => {
 };
 
 
-const addLeadingZero = (val) => val < 10 ? `0${val}` : val;
+const addLeadingZero = (val) => {
+  return val < 10 ? `0${val}` : val;
+};
 
 
 const redrawTimer = (timer, animation) => {
@@ -47,5 +49,7 @@ window.initializeCountdown = () => {
   return window.animation.animate(window.animation.getAnimation(0, 1000, 4), (animation) => {
     redrawCircle(element, radius, animation);
     redrawTimer(timer, animation);
-  }, () => timer.classList.add(`timer-value--finished`));
+  }, () => {
+    timer.classList.add(`timer-value--finished`);
+  });
 };

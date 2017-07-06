@@ -1,7 +1,11 @@
 window.animation = {
-  getAnimation: (step, stepDuration, steps) => ({
-    step, stepDuration, steps
-  }),
+  getAnimation: (step, stepDuration, steps) => {
+    return {
+      step,
+      stepDuration,
+      steps
+    };
+  },
 
   animate: (animation, callback, callbackEnd) => {
     const interval = setInterval(() => {
@@ -17,7 +21,9 @@ window.animation = {
       }
     }, animation.stepDuration);
 
-    const stopFn = () => clearInterval(interval);
+    const stopFn = () => {
+      clearInterval(interval);
+    };
 
     return stopFn;
   }

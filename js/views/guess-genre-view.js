@@ -1,5 +1,5 @@
 import GameView from './game-view.js';
-import {getAnswerIdx} from '../utils.js';
+import {getAnswerIdx, isChecked} from '../utils.js';
 
 export default class GuessGenreView extends GameView {
 
@@ -43,7 +43,7 @@ export default class GuessGenreView extends GameView {
     sendBtn.addEventListener(`click`, (evt) => {
       evt.preventDefault();
       const answersIdx = answers
-                          .filter((checkbox) => checkbox.checked)
+                          .filter(isChecked)
                           .map(getAnswerIdx);
 
       this.handleAnswerSubmit(answersIdx);
@@ -53,12 +53,14 @@ export default class GuessGenreView extends GameView {
       window.initializePlayer(track, this.props.question.answers[idx].src);
     });
 
-    answers.forEach((elem) => elem.addEventListener(`change`, () => {
-      if (answers.some((checkbox) => checkbox.checked)) {
-        sendBtn.disabled = false;
-      } else {
-        sendBtn.disabled = true;
-      }
-    }));
+    answers.forEach((elem) => {
+      elem.addEventListener(`change`, () => {
+        if (answers.some(isChecked)) {
+          sendBtn.disabled = false;
+        } else {
+          sendBtn.disabled = true;
+        }
+      });
+    });
   }
 }
